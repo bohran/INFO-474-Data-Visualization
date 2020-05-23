@@ -1,0 +1,52 @@
+<h1>My Scatter Plot</h1>
+<canvas id = "myCanvas" width = 500 height=500>
+    <p>Update!!</p>
+</canvas>
+<script>
+var canvas = document.getElementById("myCanvas");
+var context = canvas.getContext("2d")
+
+function line(x1, y1, x2, y2){
+    context.beginPath();
+    context.moveTo(x1,y1);
+    context.lineTo(x2,y2);
+    context.stroke();
+}
+line(50, 430, 430, 430);
+line(70, 50, 70, 450);
+context.font = '14px Calibri';
+for (x = 110; x < 440; x+=40){
+    line(x , 430, x, 440);  
+}
+for (y = 110; y < 400; y+=40){
+    line(60 , y, 70, y);   
+}
+for (x = 100; x < 440; x+=40){
+    context.fillText((x-100)/4, x, 455); 
+}
+count = 90;
+for(y = 90; y < 440; y+=40){
+    context.fillText(count, 30, y+5)
+    count -=10;
+}
+line(70,430,430,70)
+
+var text = '{ "points" : [' +
+'{ "x":"30" , "y":"30" },' +
+'{ "x":"40" , "y":"40" },' +
+'{ "x":"50" , "y":"50" } ]}';
+data = JSON.parse(text);
+
+for (p in data.points){
+    context.beginPath(); 
+    x = 4 * Number(data.points[p].x) + 80;
+    y = 420 - 4 * Number(data.points[p].y)
+    context.arc(x, y, 5, 0, 2 * Math.PI, false);
+    context.fillStyle = 'green';
+    context.fill(); 
+    context.lineWidth = 1; 
+    context.strokeStyle = '#003300';
+    context.stroke();
+}
+</script>
+
